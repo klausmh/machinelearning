@@ -505,9 +505,17 @@ namespace Microsoft.ML.TimeSeries
                             }
                             else if (dimension.Key.AnomalyDis.Count == 1)
                             {
+
                                 if (best.AnomalyDis.Count > 1)
                                 {
                                     best = dimension.Key;
+                                }
+                                else if (best.AnomalyDis.Count == 1)
+                                {
+                                    if (!isRatioNan && (isLeavesLevel ? valueRatioMap[best].CompareTo(dimension.Value) <= 0 : valueRatioMap[best].CompareTo(dimension.Value) >= 0))
+                                    {
+                                        best = GetBestDimension(best, dimension, valueRatioMap);
+                                    }
                                 }
                                 else if (best.AnomalyDis.Count == 1)
                                 {
