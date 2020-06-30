@@ -481,7 +481,8 @@ namespace Microsoft.ML.TimeSeries
             List<BestDimension> ordered = new List<BestDimension>();
 
             BestDimension best;
-            do {
+            do
+            {
                 best = null;
 
                 foreach (KeyValuePair<BestDimension, double> dimension in valueMapAsList)
@@ -492,7 +493,7 @@ namespace Microsoft.ML.TimeSeries
                         {
                             best = dimension.Key;
                         }
-                        else if (dimension.Key.AnomalyDis.Count == 1)
+                        else
                         {
                             bool isRatioNan = Double.IsNaN(valueRatioMap[best]);
                             if (dimension.Key.AnomalyDis.Count > 1)
@@ -504,10 +505,9 @@ namespace Microsoft.ML.TimeSeries
                             }
                             else if (dimension.Key.AnomalyDis.Count == 1)
                             {
-
                                 if (best.AnomalyDis.Count > 1)
                                 {
-                                    best = GetBestDimension(best, dimension, valueRatioMap);
+                                    best = dimension.Key;
                                 }
                                 else if (best.AnomalyDis.Count == 1)
                                 {
